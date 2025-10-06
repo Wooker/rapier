@@ -25,7 +25,7 @@ pub mod pager;
 pub struct YTApi<'yt, Tz: TimeZone> {
     base_url: &'yt str,
     #[allow(unused)]
-    key: String,
+    key: Option<String>,
     _phantom: PhantomData<Tz>,
 }
 
@@ -70,7 +70,7 @@ pub enum ApiPropType {
 }
 
 impl<'yt, Tz: TimeZone> YTApi<'yt, Tz> {
-    pub fn new(key: String) -> Self {
+    pub fn new(key: Option<String>) -> Self {
         Self {
             base_url: Self::URL,
             key,
