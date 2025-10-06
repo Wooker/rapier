@@ -1,4 +1,5 @@
 use chrono::TimeZone;
+use codes_iso_3166::part_1::CountryCode;
 
 use super::YTApi;
 use crate::{
@@ -41,6 +42,7 @@ pub enum Props {
     PageToken(String),
     Query(String),
     Type(Type),
+    RegionCode(CountryCode),
 }
 
 pub struct YTSearchBuilder<'yt, Tz: TimeZone> {
@@ -91,6 +93,9 @@ impl<'yt, Tz: TimeZone> Builder for YTSearchBuilder<'yt, Tz> {
                     Type::Playlist => ApiPropType::Optional(format!("type={}", "playlist")),
                     Type::Channel => ApiPropType::Optional(format!("type={}", "channel")),
                 },
+                Props::RegionCode(country_code) => {
+                    ApiPropType::Optional(format!("regionCode={}", country_code))
+                }
             })
             .collect::<Vec<ApiPropType>>()
     }
