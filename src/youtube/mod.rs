@@ -7,6 +7,7 @@ use crate::{
         activities::YTActivitiesBuilder,
         search::YTSearchBuilder,
         subscriptions::YTSubscriptionsBuilder,
+        videos::YTVideosBuilder,
         // channels::YTChannelsBuilder, search::YTSearchBuilder,
         // subscriptions::YTSubscriptionsBuilder, videos::YTVideosBuilder,
     },
@@ -18,7 +19,7 @@ pub mod activities;
 // pub mod channels;
 pub mod search;
 pub mod subscriptions;
-// pub mod videos;
+pub mod videos;
 
 pub mod pager;
 
@@ -87,9 +88,9 @@ impl<'yt, Tz: TimeZone> YTApi<'yt, Tz> {
     pub fn subscriptions(&'yt self) -> YTSubscriptionsBuilder<'yt, Tz> {
         YTSubscriptionsBuilder::from_parent(self)
     }
-    // pub fn videos(&'yt self) -> YTVideosBuilder<'yt> {
-    //     YTVideosBuilder::from(self)
-    // }
+    pub fn videos(&'yt self) -> YTVideosBuilder<'yt, Tz> {
+        YTVideosBuilder::from_parent(self)
+    }
     // pub fn channels(&'yt self) -> YTChannelsBuilder<'yt> {
     //     YTChannelsBuilder::from(self)
     // }
