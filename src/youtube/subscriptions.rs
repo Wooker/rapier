@@ -40,6 +40,7 @@ pub enum Props {
     PageToken(String),
 }
 
+#[derive(Clone)]
 pub struct YTSubscriptionsBuilder<'yt, Tz: TimeZone> {
     api: &'yt YTApi<'yt, Tz>,
     props: Vec<Props>,
@@ -89,7 +90,7 @@ impl<'yt, Tz: TimeZone> Builder for YTSubscriptionsBuilder<'yt, Tz> {
                     Order::Relevance => ApiPropType::Optional("order=relevance".to_string()),
                     Order::Unread => ApiPropType::Optional("order=unread".to_string()),
                 },
-                Props::PageToken(_) => todo!(),
+                Props::PageToken(pt) => ApiPropType::Optional(format!("pageToken={}", pt)),
             })
             .collect::<Vec<ApiPropType>>()
     }
