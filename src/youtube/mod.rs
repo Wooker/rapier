@@ -43,17 +43,23 @@ pub trait Builder: Sized {
 
     fn build(self) -> Result<Self::Api, String> {
         let props = self.props();
+        let required = props
+            .iter()
+            .filter(|p| matches!(p, ApiPropType::Required(_)))
+            .count();
         let filters = props
             .iter()
             .filter(|p| matches!(p, ApiPropType::Filter(_)))
             .count();
-        if filters >= Self::MIN_FILTERS && filters <= Self::MAX_FILTERS {
+        if required > 0 && filters >= Self::MIN_FILTERS && filters <= Self::MAX_FILTERS {
             Ok(Self::Api::from_builder(self, props))
         } else {
             Err(format!(
-                "Incorrect number of filters. Provided: {}, required: {}",
+                "Incorrect number of properties.\nRequired: {} (must be at least one).\nFilters: {}(must be at least {} and no more than {}.",
+                required,
                 filters,
-                Self::MIN_FILTERS
+                Self::MIN_FILTERS,
+                Self::MAX_FILTERS
             ))
         }
     }
