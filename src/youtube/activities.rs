@@ -6,6 +6,10 @@ use crate::{
     youtube::{ApiPropType, BuildableApi, Builder, YTApi},
 };
 
+#[cfg(feature = "clap-derive")]
+use clap::ValueEnum;
+
+#[cfg_attr(feature = "clap-derive", derive(ValueEnum))]
 #[derive(Debug, Clone)]
 pub enum PartProps {
     ContentDetails,

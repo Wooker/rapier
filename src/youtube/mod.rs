@@ -5,11 +5,11 @@ use crate::{
     Api,
     youtube::{
         activities::YTActivitiesBuilder,
+        playlists::YTPlaylistsBuilder,
         search::YTSearchBuilder,
         subscriptions::YTSubscriptionsBuilder,
-        videos::YTVideosBuilder,
-        // channels::YTChannelsBuilder, search::YTSearchBuilder,
-        // subscriptions::YTSubscriptionsBuilder, videos::YTVideosBuilder,
+        videos::YTVideosBuilder, // channels::YTChannelsBuilder, search::YTSearchBuilder,
+                                 // subscriptions::YTSubscriptionsBuilder, videos::YTVideosBuilder,
     },
 };
 
@@ -17,6 +17,7 @@ pub mod auth;
 
 pub mod activities;
 // pub mod channels;
+pub mod playlists;
 pub mod search;
 pub mod subscriptions;
 pub mod videos;
@@ -96,6 +97,9 @@ impl<'yt, Tz: TimeZone> YTApi<'yt, Tz> {
     }
     pub fn videos(&'yt self) -> YTVideosBuilder<'yt, Tz> {
         YTVideosBuilder::from_parent(self)
+    }
+    pub fn playlists(&'yt self) -> YTPlaylistsBuilder<'yt, Tz> {
+        YTPlaylistsBuilder::from_parent(self)
     }
     // pub fn channels(&'yt self) -> YTChannelsBuilder<'yt> {
     //     YTChannelsBuilder::from(self)

@@ -141,7 +141,7 @@ impl<'yt, Tz: TimeZone> BuildableApi for YTVideos<'yt, Tz> {
     }
 }
 impl<'api, Tz: TimeZone> Api<'api> for YTVideos<'api, Tz> {
-    const URL: &'api str = "videos?part=snippet&";
+    const URL: &'api str = "videos?";
     fn url(&self) -> String {
         let props = self
             .props
