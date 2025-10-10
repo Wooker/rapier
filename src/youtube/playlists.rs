@@ -1,5 +1,4 @@
 use chrono::TimeZone;
-use codes_iso_3166::part_1::CountryCode;
 
 use super::YTApi;
 use crate::{
